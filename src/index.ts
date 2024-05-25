@@ -12,6 +12,8 @@ const main = async () => {
   await MongoClient.connect();
 
   app.get("/products", async (req, res) => {
+    console.log("GET /products");
+
     const mongoGetAllProductsRepository = new MongoGetAllProductsRepository();
 
     const getAllProductsController = new GetAllProductsController(mongoGetAllProductsRepository);
