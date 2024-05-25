@@ -4,7 +4,7 @@ import { Product } from "../../models/product";
 
 export class MongoCreateProductRepository implements ICreateProductRepository {
   async createProduct(params: CreateProductParams): Promise<Product> {
-    const { insertedId } = await MongoClient.db.collection("products").insertOne({ params });
+    const { insertedId } = await MongoClient.db.collection("products").insertOne(params);
 
     const product = await MongoClient.db.collection<Omit<Product, "id">>("products").findOne({ _id: insertedId });
 
