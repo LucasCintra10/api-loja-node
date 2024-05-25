@@ -1,12 +1,29 @@
-import express from 'express';
-import {config} from 'dotenv';
+import express from "express";
+import { config } from "dotenv";
+import { MongoGetAllProductsRepository } from "./repositories/product/mongo-get-all-products";
+import { GetAllProductsController } from "./controllers/product/get-all-products/get-all-products";
+import { MongoClient } from "./database/mongo";
 
-config();
+const main = async () => {
+  config();
 
-const app = express();
+  const app = express();
+  const port = process.env.PORT || 3000;
+  await MongoClient.connect();
 
-const port = process.env.PORT || 3000;
+  app.get("/products", async (req, res) => {
+    const mongoGetAllProductsRepository = new MongoGetAllProductsRepository();
 
-app.listen(port, () => {
+    const getAllProductsController = new GetAllProductsController(mongoGetAllProductsRepository);
+
+    const response = await getAllProductsController.handle();
+
+    res.status(response.statusCode).json(response.body);
+  });
+
+  app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
-    });
+  });
+};
+
+main();
