@@ -1,9 +1,9 @@
 import { Product } from "../../../models/product";
-import { HttpReponse } from "../../protocols";
+import { HttpResponse } from "../../protocols";
 
 
 export interface IGetAllProductsController {
-    handle():  Promise<HttpReponse<Product[]>>;
+    handle():  Promise<HttpResponse<Product[]>>;
 }
 
 export interface IGetAllProductsRepository {

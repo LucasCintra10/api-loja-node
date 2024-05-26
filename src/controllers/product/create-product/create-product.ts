@@ -1,11 +1,11 @@
 import { Product } from "../../../models/product";
-import { HttpReponse, HttpRequest } from "../../protocols";
+import { HttpResponse, HttpRequest } from "../../protocols";
 import { CreateProductParams, ICreateProductController, ICreateProductRepository } from "./protocols";
 
 export class CreateProductController implements ICreateProductController {
   constructor(private readonly createProductRepository: ICreateProductRepository) {}
 
-  async handle(httpRequest: HttpRequest<CreateProductParams>): Promise<HttpReponse<Product>> {
+  async handle(httpRequest: HttpRequest<CreateProductParams>): Promise<HttpResponse<Product>> {
     if (!httpRequest.body) {
       return {
         statusCode: 400,
