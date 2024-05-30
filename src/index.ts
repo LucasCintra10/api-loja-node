@@ -1,9 +1,11 @@
 import express from "express";
 import { config } from "dotenv";
 import { MongoGetAllProductsRepository } from "./repositories/product/mongo-get-all-products";
+import { MongoGetProductRepository } from "./repositories/product/mongo-get-product";
 import { MongoCreateProductRepository } from "./repositories/product/monto-create-product";
 import { MongoUpdateProductRepository } from "./repositories/product/mongo-update-product";
 import { GetAllProductsController } from "./controllers/product/get-all-products/get-all-products";
+import { GetProductController } from "./controllers/product/get-product/get.product";
 import { CreateProductController } from "./controllers/product/create-product/create-product";
 import { UpdateProductController } from "./controllers/product/update-product/update-product";
 import { MongoClient } from "./database/mongo";
@@ -32,6 +34,18 @@ const main = async () => {
     const getAllProductsController = new GetAllProductsController(mongoGetAllProductsRepository);
 
     const response = await getAllProductsController.handle();
+
+    res.status(response.statusCode).json(response.body);
+  });
+
+  app.get("/products/:id", async (req, res) => {
+    console.log("GET /products/:id");
+
+    const mongoGetProductRepository = new MongoGetProductRepository();
+
+    const getProductController = new GetProductController(mongoGetProductRepository);
+
+    const response = await getProductController.handle({ params: req.params });
 
     res.status(response.statusCode).json(response.body);
   });

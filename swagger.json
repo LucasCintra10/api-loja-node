@@ -26,8 +26,49 @@
                     }
                 }
             },
+                "responses": {
+                    "200": {
+                        "description": "The created product",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+        "/products/{id}": {
+            "get": {
+                "summary": "Get a product by id",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The product",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Product"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/products/create": {
             "post": {
-                "summary": "Create a new product",
+                "summary": "Create a product",
                 "requestBody": {
                     "content": {
                         "application/json": {
@@ -52,6 +93,7 @@
                 }
             }
         },
+
         "/products/update/{id}": {
             "patch": {
                 "summary": "Update a product",
