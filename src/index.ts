@@ -9,6 +9,9 @@ import { UpdateProductController } from "./controllers/product/update-product/up
 import { MongoClient } from "./database/mongo";
 import { MongoDeleteProductRepository } from "./repositories/product/mongo-delete-product";
 import { DeleteProductController } from "./controllers/product/delete-product/delete-product";
+import swaggerUI from "swagger-ui-express";
+import swaggerDocument from "../swagger.json";
+
 
 const main = async () => {
   config();
@@ -18,6 +21,8 @@ const main = async () => {
   app.use(express.json());
   const port = process.env.PORT || 3000;
   await MongoClient.connect();
+
+  app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
   app.get("/products", async (req, res) => {
     console.log("GET /products");
