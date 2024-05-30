@@ -1,4 +1,3 @@
-import { stat } from "fs";
 import { IGetAllProductsController, IGetAllProductsRepository } from "./protocols";
 
 export class GetAllProductsController implements IGetAllProductsController {
